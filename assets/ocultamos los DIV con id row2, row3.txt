@@ -1,0 +1,329 @@
+/*ocultamos los DIV con id row2, row3, row2b, row3b, br2 y br3 apenas cargue la pagina o documento HTML*/
+document.querySelector('#row2').style.display = "none";
+document.querySelector('#row2b').style.display = "none";
+document.querySelector('#row3').style.display = "none";
+document.querySelector('#row3b').style.display = "none";
+document.querySelector('#br2').style.display = "none";
+document.querySelector('#br3').style.display = "none";
+document.querySelector('#row4').style.display = "none";
+document.querySelector('#row4b').style.display = "none";
+
+/*Definimos las variables que se van a utilizar para almacenar las selecciones de tipoPiel y tipoProducto */
+let tipoPiel = "";
+let tipoProducto = "";
+let varTituloResult = "";
+let varPrecioResult = "";
+
+/*Definimos la matriz que contendra los datos acerca de los productos que se mostraran en la página, la matriz tendra un tamaño de 15x6; 15 filas 6 columnas */
+let aDatos = Array.from({length: 15}, () => new Array(8));
+/*En este código, Array.from() se utiliza para crear una nueva matriz con 15 elementos. La función de flecha "() => new Array(6)" se pasa como argumento a Array.from(), 
+lo que significa que para cada uno de los 15 elementos de la matriz, se creará una nueva matriz con 6 elementos. Esto resultará en una matriz de 15x6. 
+15 filas y 6 columnas*/
+
+/*Llenar la matriz con la información de los productos */
+aDatos[0][0] = "Piel Seca";
+aDatos[0][1] = "Limpiador";
+aDatos[0][2] = "Loción limpiadora Cetaphil";
+aDatos[0][3] = "./assets/img/imagen1.jpg";
+aDatos[0][4] = "Loción limpiadora Facial y Corporal de uso diario con alta tolerancia para pieles sensibles y secas, inclusive la de bebés. Formula sin jabón y con pH balanceado que elimina las impurezas manteniendo la hidratación de la piel, déjándola suave y saludable.";
+aDatos[0][5] = "Ingredientes:";
+aDatos[0][6] = "Cocoil Isetionato de Sodio, Glicerina, Pantenol, Niacinamida, Agua, Benzoato sódico, Alcohol cetearílico, Ácido cítrico, Pantolactone, Goma xantán.";
+aDatos[0][7] = "$ 82.000";
+aDatos[1][0] = "Piel Seca";
+aDatos[1][1] = "Contorno de ojos";
+aDatos[1][2] = "Crema contorno de ojos de Piel Seca - OIRIS";
+aDatos[1][3] = "./assets/img/imagen2.jpg";
+aDatos[1][4] = "Usala de noche/día, es ideal para combatir la aparición de líneas de expresión, su fórmula contiene una combinación perfecta de aceites dedicados a tu cuidado, te brindan una hidratación profunda a tu mirada mientras te relajas con su delicioso aroma a Pomelo. La piel alrededor de nuestros ojos es la más suave, delgada y delicada de todo nuestro cuerpo, no es de extrañarse que sea la primera parte del cuerpo que muestra los signos del paso del tiempo, pierde elasticidad y su capacidad de humectación.";
+aDatos[1][5] = "Ingredientes:";
+aDatos[1][6] = "Agua, Manteca de mango, Matenca de karité, Aceite de arroz, Aceite de jojoba, Aceite de coco, Aceite de sandía, Aceite esencial de pomelo, Vitamina E, conservadores naturales. LISTA INCI: Aqua, Mangifera indica Butter, Butyrospermum Parkii Butter, Oryza Sativa Bran Oil, Simmondsia Chinensis Seed Oil, Coco nucifera oil, Citrullus Lanatus Seed Oil, Citrus Paradisi Peel Oil, Cetearyl alcohol, sodium cetearyl sulfate, Cetearyl Olivate, Sorbitan Olivate, Tocopherol, Benzoic Acid, Sorbic Acid, Dehydroacetic Acid, Benzyl alcohol, Dehydroacetic Acid, Benzyl Alcohol.";
+aDatos[1][7] = "$ 49.500";
+aDatos[2][0] = "Piel Seca";
+aDatos[2][1] = "Serum";
+aDatos[2][2] = "Germaine de Capuccini Sérum Hyaluronic 3D Force";
+aDatos[2][3] = "./assets/img/imagen3.jpg";
+aDatos[2][4] = "Sérum Hidratación y Relleno Hyaluronic 3D Force I Timexpert Hydraluronic, de Germaine de Capuccini. De textura gel, este potente sérum facial hidrata 24 horas, mejora el volumen, la firmeza del rostro y refuerza el sistema inmune de la piel. También es un buen producto para rehidratar la piel en ocasiones puntuales, estaciones o períodos concretos.";
+aDatos[2][5] = "Fórmula:";
+aDatos[2][6] = "ÁCIDO HIALURÓNICO DE ALTO MEDIO Y BAJO PESO, PGA, NAG, GLUCOMINOGLICANOS SULFATADOS";
+aDatos[2][7] = "$ 174.756";
+aDatos[3][0] = "Piel Seca";
+aDatos[3][1] = "Bloqueador Solar";
+aDatos[3][2] = "Protector solar sunaid evolution spf50";
+aDatos[3][3] = "./assets/img/imagen4.jpg";
+aDatos[3][4] = "Protector solar de amplio espectro con SPF 50+ toque seda que se funde con el primer contacto de la piel. Atenúa y minimiza la apariencia de poros y líneas de expresión por su efecto Soft Focus ya que perfecciona el aspecto y el tono del rostro.";
+aDatos[3][5] = "Principios activos:";
+aDatos[3][6] = "Principios activos: Renovage, Tinosorb S, Uvinul T150, Uvinul A Plus, Octilmetoxicinamato, Alfa-bisabolol.";
+aDatos[3][7] = "$ 118.000";
+aDatos[4][0] = "Piel Seca";
+aDatos[4][1] = "Crema Hidratante";
+aDatos[4][2] = "Hidraderm Hyal Crema Hidratante - 50ml Sesderma";
+aDatos[4][3] = "./assets/img/imagen5.jpg";
+aDatos[4][4] = "Crema facial hidratante con ácido hialurónico Sesderma. Su efecto principal es rellenar líneas de expresión superficiales.";
+aDatos[4][5] = "Composición";
+aDatos[4][6] = "Contiene 3 tipos de ácido hialurónico: de alto peso molecular libre; y de bajo y muy bajo peso molecular, encapsulados en liposomas.";
+aDatos[4][7] = "$ 165.000";
+aDatos[5][0] = "Piel Normal";
+aDatos[5][1] = "Limpiador";
+aDatos[5][2] = "Gel limpiadora Hyseac";
+aDatos[5][3] = "./assets/img/imagen6.jpg";
+aDatos[5][4] = "Gel limpiador purificante diseñado para la higiene diaria, delicado con piel seca y otros tipos de piel.";
+aDatos[5][5] = "Purifica y desinfecta:";
+aDatos[5][6] = "Con su fórmula específica para las pieles mixtas o grasas, este gel elimina las impurezas y el exceso de grasa. Gel limpiador purificante diseñado para la higiene diaria, delicado con piel seca y otros tipos de piel.";
+aDatos[5][7] = "$ 104,000";
+aDatos[6][0] = "Piel Normal";
+aDatos[6][1] = "Contorno de ojos";
+aDatos[6][2] = "Revitalift ácido hialuronico contorno de ojos";
+aDatos[6][3] = "./assets/img/imagen7.jpg";
+aDatos[6][4] = "Crema Facial L'Oréal Paris Revitalift ácido hialurónico contorno de ojos, previene y trata líneas de expresión. Hidratación 24 H.";
+aDatos[6][5] = "Ingredientes:";
+aDatos[6][6] = "AQUA / WATER, DIMETHICONE, GLYCERIN, SILICA [NANO] / SILICA, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, PRUNUS ARMENIACA KERNEL OIL / APRICOT KERNEL OIL, ADENOSINE, CAFFEINE, DISODIUM EDTA, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, SODIUM HYALURONATE, TRIETHANOLAMINE, TOCOPHERYL ACETATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CI 77891 / TITANIUM DIOXIDE, ISOHEXADECANE, MICA, POLYSORBATE 80, SORBITAN OLEATE, TIN OXIDE, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, DIMETHICONOL, CHLORPHENESIN, PHENOXYETHANOL.";
+aDatos[6][7] = "$ 54.100";
+aDatos[7][0] = "Piel Normal";
+aDatos[7][1] = "Serum";
+aDatos[7][2] = "Sérum antiarrugas con vitamina c x 30 ml";
+aDatos[7][3] = "./assets/img/imagen8.jpg";
+aDatos[7][4] = "Reduce visiblemente y de forma progresiva la aparición de arrugas y líneas de expresión. Acción antioxidante, protegiendo la piel del daño causado por los radicales libres. Ayuda a unificar el tono de la piel, mejorando la apariencia de manchas y despigmentaciones. Mejora la textura y luminosidad de la piel. Aporta elasticidad y firmeza a la piel. Hidrata sin dejar sensación grasosa. Ideal para todo tipo de piel.";
+aDatos[7][5] = "Ingredientes";
+aDatos[7][6] = "Aqua, ascorbyl methylsilanol pectinate, olea europaea (olive) fruit oil, glycerin, propylene glycol, dimethicone,cetyl alcohol, beeswax, triethanolamine, benzyl alcohol (and) ethylhexylglycerin, glyceryl stearate, xanthan gum, fragrance. La vitamina C: Potente antioxidante, previene arrugas y líneas de expresión. Desvanece manchas e ilumina la piel. Silicio Orgánico: Aporta firmeza y elasticidad a la piel. Aceite de Oliva: Hidrata y repara la piel.";
+aDatos[7][7] = "$ 41.000";
+aDatos[8][0] = "Piel Normal";
+aDatos[8][1] = "Bloqueador Solar";
+aDatos[8][2] = "Protector solar Heliocare 360 gel – 50 ml";
+aDatos[8][3] = "./assets/img/imagen9.jpg";
+aDatos[8][4] = "Su fórmula no comedogénica y ligera en textura gel libre de aceites deja la piel suave, lisa y sin brillos tras su aplicación. Su complejo con doble acción matificante-seborreguladora hace que sea adecuado para las pieles grasas o con tendencia acneica, con un acabado mate y seco al momento. Cumple las más altas exigencias en materia de fotoprotección. Con Fernblock® +, filtros específicos y activos reparadores y antioxidantes, protege frente a las 4 radiaciones (UVB, UVA, Visible e Infrarrojo), neutraliza y repara el daño solar. Testado bajo control dermatológico y oftalmológico.";
+aDatos[8][5] = "Composición:";
+aDatos[8][6] = "Aqua. C12-15 alkyl benzoate. Arginine. Phenylbenzimidazole sulfonic acid. Disodium phenyl dibenzimidazole tetrasulfonate. Bis-ethylhexyloxyphenol methoxyphenyl triazine. Titanium dioxide (nano). Hexylene glycol. C14-22 alcohols. C12-20 alkyl glucoside. Diethylamino hydroxybenzoyl hexyl benzoate. Nylon-12. Myristyl alcohol. Dipropylene glycol dibenzoate. Diethylhexyl butamido triazone. Phenoxyethanol. Polypodium leucotomos leaf extract. Ethylhexyl ferulate. Ferulic acid. Caffeic acid. Physalis angulata extract. Ceteareth-25. Caprylyl glycol. Melanin. Myristyl glucoside. Ethylhexyl triazone. Caprylyl methicone. Hydrolyzed wheat protein/PVP crosspolymer. Glycerin. Ethyl ascorbic acid. Alumina. PPG-15 stearyl ether benzoate. Disodium ethylene dicocamide PEG-15 disulfate. Camelia sinensis extract. Ethylhexylglycerin. Tocopheryl acetate. Xanthan gum. Phytosphingosine HCl. Arabidopsis thaliana extract. Ethyl lauroyl arginate HCl. Panthenyl triacetate. Parfum. Simethicone. Oxothiazolidine. Disodium EDTA. Silica. Ethyl linoleate. Caprylic/Capric triglyceride. Oleyl alcohol. Butylene glycol. Lecithin. Sodium benzoate. Tocopherol. Linalool. Limonene.";
+aDatos[8][7] = "$ 169,000";
+aDatos[9][0] = "Piel Normal";
+aDatos[9][1] = "Crema Hidratante";
+aDatos[9][2] = "Hydraskin face 50 gr – pharmaderm";
+aDatos[9][3] = "./assets/img/imagen10.jpg";
+aDatos[9][4] = "Hidratación de larga duración, suavizante, reparador, efecto protector y anti irritante.";
+aDatos[9][5] = "Ingredientes activos:";
+aDatos[9][6] = "Liposomas, ácido hialurónico, Aloe vera, Alantoína, Escleroglucan, Alfabisabolol.";
+aDatos[9][7] = "$ 97.000";
+aDatos[10][0] = "Piel Grasa";
+aDatos[10][1] = "Limpiador";
+aDatos[10][2] = "Gel limpiador espumoso CeraVe x 473 ml";
+aDatos[10][3] = "./assets/img/imagen11.jpg";
+aDatos[10][4] = "El gel espumoso de CeraVe permite limpiar y eliminar el exceso de sebo sin afectar la barrera protectora de la piel. Ideal para pieles normales a grasas, su fórmula contiene 3 ceramidas esenciales que la piel sana necesita para ayudar a renovar y mantener su barrera protectora natural y ácido hialurónico.";
+aDatos[10][5] = "Ingredientes:";
+aDatos[10][6] = "AQUA / AGUA / EAU, COCAMIDOPROPIL HIDROXISULTAÍNA, GLICERINA, LAUROIL SARCOSINATO DE SODIO, TETRAESTEARATO DE PENTAERITRITILO PEG-150, NIACINAMIDA, GLICÉRIDOS CAPRÍLICO/CÁPRICO PEG-6, METIL COCOIL TAURATO DE SODIO, PROPILENGLICOL, CERAMIDA NP, CERAMIDA AP, CERAMIDA EOP, CARBÓMERO, METILPARABENO, CLORURO DE SODIO, LAUROIL LACTILATO DE SODIO, COLESTEROL, EDTA DISÓDICO, PROPILPARABENO, ÁCIDO CÍTRICO, EDTA TETRASÓDICO, ÁCIDO HIALURÓNICO HIDROLIZADO, FITOESFINGOSINA, GOMA XANTANA.";
+aDatos[10][7] = "$ 95.000";
+aDatos[11][0] = "Piel Grasa";
+aDatos[11][1] = "Contorno de ojos";
+aDatos[11][2] = "Contorno De Ojos de Piel Grasa - Oiris";
+aDatos[11][3] = "./assets/img/imagen12.jpg";
+aDatos[11][4] = "Usala de noche/día, es ideal para combatir la aparición de líneas de expresión, su fórmula contiene una combinación perfecta de aceites dedicados a tu cuidado, te brindan una hidratación profunda a tu mirada mientras te relajas con su delicioso aroma a Pomelo. La piel alrededor de nuestros ojos es la más suave, delgada y delicada de todo nuestro cuerpo, no es de extrañarse que sea la primera parte del cuerpo que muestra los signos del paso del tiempo, pierde elasticidad y su capacidad de humectación.";
+aDatos[11][5] = "Composición:";
+aDatos[11][6] = "Agua, Manteca de karité, Aceite de arroz, Aceite de jojoba, Aceite de sandía, Aceite de pomelo, Vitamina E. conservadoras naturales. Lista INCI: Aqua, Butyrospermum Parkii Butter, Oryza Sativa Bran Oil, Simmondsia Chinensis Seed Oil, Citrullus Lanatus Seed Oil, Citrus Paradisi Peel Oil, Cetearyl Olivate, Sorbitan Olivate, Tocopherol, Benzoic Acid, Sorbic Acid, Dehydroacetic Acid, Benzyl alcohol, Dehydroacetic Acid, Benzyl Alcohol.";
+aDatos[11][7] = "$ 51.500";
+aDatos[12][0] = "Piel Grasa";
+aDatos[12][1] = "Serum";
+aDatos[12][2] = "La Roche-Posay Effaclar Sérum Ultra Concentrado";
+aDatos[12][3] = "./assets/img/imagen13.jpg";
+aDatos[12][4] = "Es uno de los elixires más conocidos y recomendados para pieles grasas. Su formulación actúa para equilibrar la piel grasa y propensa al acné. Regula los poros dilatados, la textura áspera y recupera el tono apagado.";
+aDatos[12][5] = "Ingredientes destacados:";
+aDatos[12][6] = "Aqua/water, Alcohol denat, propanediol, glycolic acid, niacinamide, dimethyl isosorbide, pentylene glycol, salicylic acid, sodium hydroxide.";
+aDatos[12][7] = "$ 121.683";
+aDatos[13][0] = "Piel Grasa";
+aDatos[13][1] = "Bloqueador Solar";
+aDatos[13][2] = "Umbrella gel 50+ x 60 gr";
+aDatos[13][3] = "./assets/img/imagen14.jpg";
+aDatos[13][4] = "Protector solar de amplio espectro, indicado para pieles mixtas a grasas. Actúa contra las radiaciones en el rango uvb/uva, visible e infrarroja. Por su spf 50+ bloquea el 98% de la radiación solar, ofreciendo la máxima protección contra las quemaduras solares.";
+aDatos[13][5] = "Fórmula:";
+aDatos[13][6] = "Óxido de zinc, octilmetoxicinamato, benzofenona- 3, metilbencilidenalcanfor, glicerina en base de gel acuoso humectante.";
+aDatos[13][7] = "$ 120.000";
+aDatos[14][0] = "Piel Grasa";
+aDatos[14][1] = "Crema Hidratante";
+aDatos[14][2] = "Sebium Mat Control x 30 ml";
+aDatos[14][3] = "./assets/img/imagen15.jpg";
+aDatos[14][4] = "Hidratante con tecnología matificante y anti-Imperfecciones de 8 horas: resultados instantáneos y profundos para una piel naturalmente sana. Regula biológicamente el brillo (zinc, vitamina B6), alisa la textura de la piel y reduce el tamaño los poros (ingredientes activos queratolíticos y astringentes), limita la aparición de imperfecciones (complejo patentado por Fluidactiv™). La patente Fluidactiv™ regula biológicamente la calidad del sebo y previene la obstrucción de los poros.";
+aDatos[14][5] = "Ingredientes Principales:";
+aDatos[14][6] = "Reduce la aparición de brillos (zinc, vitamina B6), alisa la textura de la piel y reduce el tamaño los poros (ingredientes activos queratolíticos y astringentes). Patente Fluidactiv™ Una de las causas de las imperfecciones cutáneas puede ser una modificación de la fluidez del sebo. Este complejo patentado lucha contra el espesamiento del sebo para prevenir la obstrucción de los poros y minimizar los riesgos de aparición de imperfecciones. Patente D.A.F. Las agresiones externas pueden hacer que la piel se vuelva reactiva y sensible. Este complejo patentado aumenta el umbral de tolerancia de la piel, independientemente del tipo, para reforzar su resistencia.";
+aDatos[14][7] = "$ 130.000";
+
+
+/*Funcion busca los datos dentro de la matriz, según las preferencias del usuario que se pasan como parametro de la fución:
+tipoPiel y tipoProducto */
+function obtenerRecomendacion(tipoPiel, tipoProducto){
+  for (let i = 0; i < 15; i++) {
+    for (let j = 0; j < 8; j++) {
+      if (aDatos[i][j] == tipoPiel && aDatos[i][j+1] == tipoProducto) {
+        document.getElementById("tituloResult").innerHTML = aDatos[i][j+2];
+        varTituloResult = aDatos[i][j+2];
+        document.getElementById("imagenResult").src= aDatos[i][j+3];
+        document.getElementById("descripcionResult").innerHTML = aDatos[i][j+4];
+        document.getElementById("tituloIngredientesResult").innerHTML = aDatos[i][j+5];
+        document.getElementById("ingredientesResult").innerHTML = aDatos[i][j+6];
+        document.getElementById("precioResult").innerHTML = aDatos[i][j+7];
+        varPrecioResult = aDatos[i][j+7];
+      }      
+    }
+    
+  }
+}
+
+function capturarTipoPiel() {
+  
+  /*Si la opción seleccionada fue Piel normal que tiene el id= flexRadioDefaultOne1 y dar clic en el boton siguiente para ejetutar la función caoturarTipoPiel()*/
+  if (document.getElementById("PielSeca").checked){
+    /*Se borra la estructura del DIV con id row0
+    document.getElementById("row0").style.display = 'none';*/
+    /*Se borra la estructura del DIV con id row1*/
+    document.getElementById("row1").style.display = 'none';
+    /*Se borra la estructura del DIV con id row1*/
+    document.getElementById("row1b").style.display = 'none';
+    /*Se muestra el DIV con id row2*/
+    document.getElementById("row2").style.display = "flex";
+    /*Se muestra el DIV con id row2b que es el del boton*/
+    document.getElementById("row2b").style.display = "contents";
+    /*Se cambia el texto del titulo*/
+    document.getElementById("tittlePage").innerHTML = "Seleccione el producto en el cual se encuentra interesado:";
+    document.getElementById("br2").style.visibility = "visible";
+    /*Si la opción seleccionada fue Piel normal que tiene el id= flexRadioDefaultOne2 y dar clic en el boton siguiente para ejetutar la función caoturarTipoPiel()*/
+    /*Se asigna el valor de la variable a Piel Seca*/
+    tipoPiel = "Piel Seca";
+  }else if (document.getElementById("PielNormal").checked){
+    /*Se borra la estructura del DIV con id row0
+    document.getElementById("row0").style.display = 'none';*/
+    /*Se borra la estructura del DIV con id row1*/
+    document.getElementById("row1").style.display = 'none';
+    /*Se borra la estructura del DIV con id row1*/
+    document.getElementById("row1b").style.display = 'none';
+    /*Se muestra el DIV con id row2*/
+    document.getElementById("row2").style.display = "flex";
+    /*Se muestra el DIV con id row2b que es el del boton*/
+    document.getElementById("row2b").style.display = "contents";
+    /*Se cambia el texto del titulo*/
+    document.getElementById("tittlePage").innerHTML = "Seleccione el producto en el cual se encuentra interesado:";
+    document.getElementById("br2").style.visibility = "visible";
+    /*Si la opción seleccionada fue Piel normal que tiene el id= flexRadioDefaultOne3 y dar clic en el boton siguiente para ejetutar la función caoturarTipoPiel()*/
+    /*Se asigna el valor de la variable a Piel Normal*/
+    tipoPiel = "Piel Normal";
+  }else if(document.getElementById("PielGrasa").checked){
+    /*Se borra la estructura del DIV con id row0
+    document.getElementById("row0").style.display = 'none';*/
+    /*Se borra la estructura del DIV con id row1*/
+    document.getElementById("row1").style.display = 'none';
+    /*Se borra la estructura del DIV con id row1*/
+    document.getElementById("row1b").style.display = 'none';
+    /*Se muestra el DIV con id row2*/
+    document.getElementById("row2").style.display = "flex";
+    /*Se muestra el DIV con id row2b que es el del boton*/
+    document.getElementById("row2b").style.display = "contents";
+    /*Se asigna el valor de la variable a Piel Grasa*/
+    document.getElementById("br2").style.visibility = "visible";
+    tipoPiel = "Piel Grasa";
+    /*Se cambia el texto del titulo*/
+    document.getElementById("tittlePage").innerHTML = "Seleccione el producto en el cual se encuentra interesado:";
+  }
+}
+
+function capturarTipoProducto() {
+
+    if (document.getElementById("Limpiador").checked){
+      tipoProducto = "Limpiador";
+      /*Se borra la estructura del DIV con id row2*/
+      document.getElementById("row2").style.display = 'none';
+      /*Se borra la estructura del DIV con id row2b*/
+      document.getElementById("row2b").style.display = 'none';
+      /*Se muestra el DIV con id row3*/
+      document.getElementById("row3").style.display = "inline";
+      /*Se muestra el DIV con id row3b que es el del boton*/
+      document.getElementById("row3b").style.display = "inline";
+      /*Se muestra el breadcumb */
+      document.getElementById("br3").style.display = "inline";
+      /*Se cambia el texto del titulo*/
+      document.getElementById("tittlePage").innerHTML = "El resultado recomendado por nuestra plataforma, según el tipo de piel: "+tipoPiel+", y tipo de producto: "+tipoProducto+" ; Se muestra acontinuación";
+      /*Si la opción seleccionada fue Piel normal que tiene el id= flexRadioDefaultOne2 y dar clic en el boton siguiente para ejetutar la función caoturarTipoPiel()*/
+      /*Se asigna el valor de la variable a Piel Seca*/
+      obtenerRecomendacion(tipoPiel,tipoProducto);
+
+    }else if (document.getElementById("Contorno de ojos").checked){
+      tipoProducto = "Contorno de ojos";
+      /*Se borra la estructura del DIV con id row2*/
+      document.getElementById("row2").style.display = 'none';
+      /*Se borra la estructura del DIV con id row2b*/
+      document.getElementById("row2b").style.display = 'none';
+      /*Se muestra el DIV con id row3*/
+      document.getElementById("row3").style.display = "inline";
+      /*Se muestra el DIV con id row3b que es el del boton*/
+      document.getElementById("row3b").style.display = "inline";
+      /*Se muestra el breadcumb */
+      document.getElementById("br3").style.display = "inline";
+      /*Se cambia el texto del titulo*/
+      document.getElementById("tittlePage").innerHTML = "El resultado recomendado por nuestra plataforma, según el tipo de piel: "+tipoPiel+", y tipo de producto: "+tipoProducto+" ; Se muestra acontinuación";
+      /*Si la opción seleccionada fue Piel normal que tiene el id= flexRadioDefaultOne2 y dar clic en el boton siguiente para ejetutar la función caoturarTipoPiel()*/
+      /*Se asigna el valor de la variable a Piel Seca*/
+      obtenerRecomendacion(tipoPiel,tipoProducto);
+    }else if (document.getElementById("Serum").checked){
+      tipoProducto = "Serum";
+      /*Se borra la estructura del DIV con id row2*/
+      document.getElementById("row2").style.display = 'none';
+      /*Se borra la estructura del DIV con id row2b*/
+      document.getElementById("row2b").style.display = 'none';
+      /*Se muestra el DIV con id row3*/
+      document.getElementById("row3").style.display = "inline";
+      /*Se muestra el DIV con id row3b que es el del boton*/
+      document.getElementById("row3b").style.display = "inline";
+      /*Se muestra el breadcumb */
+      document.getElementById("br3").style.display = "inline";
+      /*Se cambia el texto del titulo*/
+      document.getElementById("tittlePage").innerHTML = "El resultado recomendado por nuestra plataforma, según el tipo de piel: "+tipoPiel+", y tipo de producto: "+tipoProducto+" ; Se muestra acontinuación";
+      /*Si la opción seleccionada fue Piel normal que tiene el id= flexRadioDefaultOne2 y dar clic en el boton siguiente para ejetutar la función caoturarTipoPiel()*/
+      /*Se asigna el valor de la variable a Piel Seca*/
+      obtenerRecomendacion(tipoPiel,tipoProducto);
+    }else if (document.getElementById("Bloqueador Solar").checked){
+      tipoProducto = "Bloqueador Solar";
+      /*Se borra la estructura del DIV con id row2*/
+      document.getElementById("row2").style.display = 'none';
+      /*Se borra la estructura del DIV con id row2b*/
+      document.getElementById("row2b").style.display = 'none';
+      /*Se muestra el DIV con id row3*/
+      document.getElementById("row3").style.display = "inline";
+      /*Se muestra el DIV con id row3b que es el del boton*/
+      document.getElementById("row3b").style.display = "inline";
+      /*Se muestra el breadcumb */
+      document.getElementById("br3").style.display = "inline";
+      /*Se cambia el texto del titulo*/
+      document.getElementById("tittlePage").innerHTML = "El resultado recomendado por nuestra plataforma, según el tipo de piel: "+tipoPiel+", y tipo de producto: "+tipoProducto+" ; Se muestra acontinuación";
+      /*Si la opción seleccionada fue Piel normal que tiene el id= flexRadioDefaultOne2 y dar clic en el boton siguiente para ejetutar la función caoturarTipoPiel()*/
+      /*Se asigna el valor de la variable a Piel Seca*/
+      obtenerRecomendacion(tipoPiel,tipoProducto);
+    }else if (document.getElementById("Crema Hidratante").checked){
+      tipoProducto = "Crema Hidratante";
+      /*Se borra la estructura del DIV con id row2*/
+      document.getElementById("row2").style.display = 'none';
+      /*Se borra la estructura del DIV con id row2b*/
+      document.getElementById("row2b").style.display = 'none';
+      /*Se muestra el DIV con id row3*/
+      document.getElementById("row3").style.display = "inline";
+      /*Se muestra el DIV con id row3b que es el del boton*/
+      document.getElementById("row3b").style.display = "inline";
+      /*Se muestra el breadcumb */
+      document.getElementById("br3").style.display = "inline";
+      /*Se cambia el texto del titulo*/
+      document.getElementById("tittlePage").innerHTML = "El resultado recomendado por nuestra plataforma, según el tipo de piel: "+tipoPiel+", y tipo de producto: "+tipoProducto+" ; Se muestra acontinuación";
+      /*Si la opción seleccionada fue Piel normal que tiene el id= flexRadioDefaultOne2 y dar clic en el boton siguiente para ejetutar la función caoturarTipoPiel()*/
+      /*Se asigna el valor de la variable a Piel Seca*/
+      obtenerRecomendacion(tipoPiel,tipoProducto);
+    }
+}
+
+function volverInicio(){
+  document.location.reload();
+  /*location.reload();*/
+}
+
+function vaciarFormulario(){
+  document.querySelector('#row3').style.display = "none";
+  document.querySelector('#row3b').style.display = "none";
+  document.getElementById("tittlePage").innerHTML = "Por favor diligencie el siguiente formulario para confirmar la compra de su producto:";
+  document.getElementById("row4").style.display = "inline";
+  document.getElementById("row4b").style.display = "inline";
+  document.getElementById("asunto").value = "Compra";
+  document.getElementById("asunto").style.visibility = "hidden";
+  document.getElementById("comentarios").style.visibility = "hidden";
+  document.getElementById("comentarios").value = "Nombre de producto: "+varTituloResult+", Precio del producto por unidad: " + varPrecioResult;
+  
+}
